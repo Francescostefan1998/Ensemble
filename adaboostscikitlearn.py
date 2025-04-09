@@ -242,3 +242,19 @@ for idx, clf, tt in zip([0, 1], [tree, ada], ['Decision tree', 'AdaBoost']):
 plt.tight_layout()
 plt.text(0, -0.2, s='Alcohol', ha='center', va='center', fontsize=12, transform=axarr[1].transAxes)
 plt.show()
+
+
+# practicing with gradient boosting for classification
+
+import xgboost as xgb
+
+model = xgb.XGBClassifier(n_estimators=1000, learning_rate=0.01, max_depth=4, random_state=1, use_label_encoder=False)
+
+gbm = model.fit(X_train, y_train)
+y_train_pred = gbm.predict(X_train)
+y_test_pred = gbm.predict(X_test)
+
+gbm_train = accuracy_score(y_train, y_train_pred)
+gbm_test = accuracy_score(y_test, y_test_pred)
+
+print(f'XGboost train/test accuracies {gbm_train:.3f}/{gbm_test:.3f}')
